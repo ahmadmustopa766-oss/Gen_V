@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    
+
+<form>
+        <h1 align="center" style="margin-top:3%">FORM BIODATA MAHASANTRI</h1>
+
+  <div class="form-group row" style="padding-left: 5%;">
+    <label for="text" class="col-2 col-form-label">nama</label> 
+    <div class="col-8">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-address-book-o"></i>
+          </div>
+        </div> 
+        <input id="text" name="text" type="text" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="form-group row" style="padding-left: 5%;">
+    <label for="text2" class="col-2 col-form-label">NIM</label> 
+    <div class="col-8">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-address-card"></i>
+          </div>
+        </div> 
+        <input id="text2" name="text2" type="text" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="form-group row" style="padding-left: 5%;">
+    <label for="text1" class="col-2 col-form-label">Email</label> 
+    <div class="col-8">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-envelope-o"></i>
+          </div>
+        </div> 
+        <input id="text1" name="text1" type="text" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="form-group row" style="padding-left: 5%;">
+    <label class="col-2">Jurusan</label> 
+    <div class="col-8">
+      <div class="custom-control custom-radio custom-control-inline">
+        <input name="radio" id="radio_0" type="radio" class="custom-control-input" value="SD"> 
+        <label for="radio_0" class="custom-control-label">Sowtere Development</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input name="radio" id="radio_1" type="radio" class="custom-control-input" value="DM"> 
+        <label for="radio_1" class="custom-control-label">Dijital Merketing</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row" style="padding-left: 5%;">
+    <label for="select" class="col-2 col-form-label">Mata Kuliah</label> 
+    <div class="col-8">
+      <select id="select" name="select" class="custom-select">
+        <option value="wd">Web Design</option>
+        <option value="ds">Databasa SQL</option>
+        <option value="mm">M2M</option>
+        <option value="py">pemrograman Pyhton</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row" style="padding-left: 5%;">
+    <label class="col-2">Hobi</label> 
+    <div class="col-8">
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" value="a"> 
+        <label for="checkbox_0" class="custom-control-label">Mancing</label>
+      </div>
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input name="checkbox" id="checkbox_1" type="checkbox" class="custom-control-input" value="b"> 
+        <label for="checkbox_1" class="custom-control-label">Lari</label>
+      </div>
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input name="checkbox" id="checkbox_2" type="checkbox" class="custom-control-input" value="c"> 
+        <label for="checkbox_2" class="custom-control-label">Tidur</label>
+      </div>
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input name="checkbox" id="checkbox_3" type="checkbox" class="custom-control-input" value="e"> 
+        <label for="checkbox_3" class="custom-control-label">Makan</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row" style="padding-left: 5%;">
+    <label for="textarea" class="col-2 col-form-label">Alamat</label> 
+    <div class="col-8">
+      <textarea id="textarea" name="textarea" cols="40" rows="5" class="form-control"></textarea>
+    </div>
+  </div> 
+  <div class="form-group row" style="padding-left: 5%;">
+    <div class="offset-2 col-8">
+      <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+</form>
+    
+</body>
+</html>
