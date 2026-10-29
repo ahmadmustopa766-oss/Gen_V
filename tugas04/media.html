@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Tag Media HTML</title>
+    <link rel="icon" type="image/x-icon" href="logo.ico">
+ 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+ 
+    <style>
+        /* ===== Warna & ukuran dasar (tema malam kota) ===== */
+        :root {
+            color-scheme: dark;
+            --bg: #070a12;
+            --surface: #111726;
+            --text: #e9edf8;
+            --muted: #98a3c0;
+            --line: #232c45;
+            --accent: #ffd23f;
+            --accent-2: #fff1a8;
+            --accent-soft: rgba(255, 210, 63, .12);
+            --media-bg: #04060c;
+            --shadow: 0 10px 30px rgba(0, 0, 0, .45);
+            --shadow-hover: 0 0 0 1px rgba(255, 210, 63, .35), 0 18px 44px rgba(255, 210, 63, .14);
+        }
+ 
+        /* ===== Reset sederhana ===== */
+        *, *::before, *::after { box-sizing: border-box; }
+ 
+        html { scroll-behavior: smooth; }
+ 
+        body {
+            position: relative;
+            margin: 0;
+            min-height: 100vh;
+            padding: 2.5rem 1.25rem 7rem;
+            background: radial-gradient(120% 80% at 50% 0%, #121a33 0%, var(--bg) 60%);
+            background-attachment: fixed;
+            color: var(--text);
+            font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+            line-height: 1.6;
+            text-align: center;
+            overflow-x: hidden;
+        }
+ 
+        /* ===== Latar malam: bulan, lampu sorot, gedung, kelelawar terbang ===== */
+        .latar {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+ 
+        .bulan {
+            position: absolute;
+            top: 6%;
+            right: 8%;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #fffbe6, #ffe9a0 60%, #f5cf5e);
+            box-shadow: 0 0 60px 20px rgba(255, 222, 120, .25);
+            opacity: .9;
+            animation: denyut 6s ease-in-out infinite alternate;
+        }
+ 
+        @keyframes denyut {
+            from { box-shadow: 0 0 50px 14px rgba(255, 222, 120, .18); }
+            to   { box-shadow: 0 0 80px 28px rgba(255, 222, 120, .32); }
+        }
+ 
+        .lampu {
+            position: absolute;
+            bottom: 0;
+            left: 12%;
+            width: 220px;
+            height: 78vh;
+            background: linear-gradient(to top, rgba(255, 230, 140, .28), rgba(255, 230, 140, 0));
+            clip-path: polygon(46% 100%, 54% 100%, 100% 0, 0 0);
+            transform-origin: 50% 100%;
+            animation: sorot 9s ease-in-out infinite alternate;
+        }
+ 
+        @keyframes sorot {
+            from { transform: rotate(-22deg); }
+            to   { transform: rotate(28deg); }
+        }
+ 
+        .kota {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 26vh;
+            min-height: 150px;
+        }
+ 
+        .jendela { animation: kelip 4s ease-in-out infinite; }
+        .jendela:nth-child(3n)   { animation-duration: 5.5s; animation-delay: -1s; }
+        .jendela:nth-child(4n+1) { animation-duration: 3.2s; animation-delay: -2s; }
+        .jendela:nth-child(5n)   { animation-duration: 7s;   animation-delay: -3s; }
+ 
+        @keyframes kelip {
+            0%, 100% { opacity: .9; }
+            45%, 55% { opacity: .12; }
+        }
+ 
+        .terbang {
+            position: absolute;
+            left: -60px;
+            width: 34px;
+            color: #05070d;
+            animation: lintas 16s linear infinite;
+        }
+ 
+        .terbang svg {
+            display: block;
+            width: 100%;
+            fill: currentColor;
+            transform-origin: center;
+            animation: kepak .35s ease-in-out infinite alternate;
+        }
+ 
+        .terbang:nth-child(5) { top: 14%; animation-duration: 19s; }
+        .terbang:nth-child(6) { top: 30%; width: 24px; animation-duration: 14s; animation-delay: -6s; }
+        .terbang:nth-child(7) { top: 22%; width: 42px; animation-duration: 23s; animation-delay: -11s; }
+ 
+        @keyframes lintas {
+            0%   { transform: translate(0, 0); }
+            25%  { transform: translate(28vw, -18px); }
+            50%  { transform: translate(58vw, 14px); }
+            75%  { transform: translate(86vw, -12px); }
+            100% { transform: translate(115vw, 6px); }
+        }
+ 
+        @keyframes kepak {
+            from { transform: scaleY(1); }
+            to   { transform: scaleY(.45); }
+        }
+ 
+        /* ===== Tata letak: semua di tengah ===== */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 780px;
+            margin: 0 auto;
+        }
+ 
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            width: 100%;
+        }
+ 
+        /* ===== Header ===== */
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2.25rem;
+            animation: naik .8s ease both;
+        }
+ 
+        header h1 {
+            margin: .75rem 0;
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -.02em;
+            background: linear-gradient(100deg, var(--accent), var(--accent-2), var(--accent));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: kilau 6s linear infinite;
+        }
+ 
+        header p {
+            margin: 0 auto;
+            max-width: 46ch;
+            color: var(--muted);
+        }
+ 
+        @keyframes kilau {
+            to { background-position: 200% center; }
+        }
+ 
+        /* ===== Maskot: Kalong si kelelawar ===== */
+        .panggung {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+ 
+        .bubble {
+            position: relative;
+            max-width: 290px;
+            margin-bottom: 14px;
+            padding: .7rem 1.1rem;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            font-size: .92rem;
+            font-weight: 500;
+            transition: opacity .25s ease, transform .25s ease;
+        }
+ 
+        .bubble::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -8px;
+            width: 14px;
+            height: 14px;
+            margin-left: -7px;
+            background: var(--surface);
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            transform: rotate(45deg);
+        }
+ 
+        .bubble.ganti {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+ 
+        .maskot {
+            position: relative;
+            width: 250px;
+            padding: 0;
+            border: 0;
+            background: none;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+ 
+        .maskot svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            overflow: visible;
+        }
+ 
+        .maskot.loncat svg {
+            animation: sambar .7s ease;
+        }
+ 
+        @keyframes sambar {
+            0%, 100% { transform: translate(0, 0) rotate(0); }
+            30%      { transform: translate(-18px, -30px) rotate(-8deg); }
+            65%      { transform: translate(18px, -10px) rotate(6deg); }
+        }
+ 
+        /* Gerakan tiap bagian kelelawar */
+        .badan-kalong { animation: melayang-pelan 3s ease-in-out infinite; }
+        .sayap-kiri   { animation: kepak-kiri .55s ease-in-out infinite alternate; transform-origin: 112px 108px; }
+        .sayap-kanan  { animation: kepak-kanan .55s ease-in-out infinite alternate; transform-origin: 128px 108px; }
+        .mata         { animation: kedip 4.5s infinite; transform-box: fill-box; transform-origin: center; }
+        .telinga      { animation: kedut 5s ease-in-out infinite; transform-origin: 120px 64px; }
+ 
+        @keyframes melayang-pelan {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-10px); }
+        }
+        @keyframes kepak-kiri {
+            from { transform: rotate(-22deg) scaleY(1); }
+            to   { transform: rotate(14deg) scaleY(.85); }
+        }
+        @keyframes kepak-kanan {
+            from { transform: rotate(22deg) scaleY(1); }
+            to   { transform: rotate(-14deg) scaleY(.85); }
+        }
+        @keyframes kedip {
+            0%, 92%, 100% { transform: scaleY(1); }
+            96%           { transform: scaleY(.08); }
+        }
+        @keyframes kedut {
+            0%, 88%, 100% { transform: rotate(0); }
+            92%           { transform: rotate(-3deg); }
+            96%           { transform: rotate(3deg); }
+        }
+ 
+        .pupil { transition: transform .12s ease-out; }
+ 
+        /* Headphone & nada musik muncul saat lagu diputar */
+        .headphone {
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: opacity .3s ease, transform .3s ease;
+        }
+ 
+        body.musik .headphone {
+            opacity: 1;
+            transform: translateY(0);
+        }
+ 
+        .nada {
+            position: absolute;
+            top: 24%;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            opacity: 0;
+            pointer-events: none;
+        }
+ 
+        .nada:nth-of-type(1) { left: 6%; }
+        .nada:nth-of-type(2) { right: 6%; }
+        .nada:nth-of-type(3) { left: 22%; top: 14%; }
+ 
+        body.musik .nada { animation: nada 2.6s ease-in infinite; }
+        body.musik .nada:nth-of-type(2) { animation-delay: .9s; }
+        body.musik .nada:nth-of-type(3) { animation-delay: 1.7s; }
+ 
+        @keyframes nada {
+            0%   { opacity: 0; transform: translateY(0) rotate(0); }
+            20%  { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-80px) rotate(18deg); }
+        }
+ 
+        body.musik .badan-kalong { animation: joget .7s ease-in-out infinite alternate; }
+        body.musik .sayap-kiri  { animation-duration: .3s; }
+        body.musik .sayap-kanan { animation-duration: .3s; }
+ 
+        @keyframes joget {
+            from { transform: translateY(0) rotate(-3deg); }
+            to   { transform: translateY(-10px) rotate(3deg); }
+        }
+ 
+        /* ===== Kartu per media ===== */
+        .section {
+            width: 100%;
+            padding: 1.5rem;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+        }
+ 
+        .section:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-hover);
+        }
+ 
+        .section h2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: .6rem;
+            margin: 0 0 1.1rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+ 
+        .section h2 code {
+            padding: .15rem .6rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 6px;
+            font-size: .85rem;
+            font-weight: 700;
+        }
+ 
+        /* ===== Media ===== */
+        .media {
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+        }
+ 
+        img.media {
+            max-height: 420px;
+            object-fit: contain;
+            background: var(--media-bg);
+            transition: transform .5s ease;
+        }
+ 
+        .section:hover img.media {
+            transform: scale(1.03);
+        }
+ 
+        audio.media {
+            border-radius: 999px;
+        }
+ 
+        video.media,
+        iframe.media {
+            aspect-ratio: 16 / 9;
+            height: auto;
+            border: 0;
+            background: var(--media-bg);
+        }
+ 
+        /* ===== Footer ===== */
+        footer {
+            margin-top: 2.5rem;
+            color: var(--muted);
+            font-size: .85rem;
+            animation: naik .8s ease both;
+        }
+ 
+        /* ===== Animasi muncul ===== */
+        @keyframes naik {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+ 
+        .js .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+            transition: opacity .7s ease, transform .7s ease,
+                        box-shadow .3s ease, border-color .3s ease;
+        }
+ 
+        .js .reveal.tampil {
+            opacity: 1;
+            transform: translateY(0);
+        }
+ 
+        .js .reveal.tampil:hover {
+            transform: translateY(-6px);
+        }
+ 
+        /* ===== Fokus keyboard ===== */
+        :focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+            border-radius: 12px;
+        }
+ 
+        /* ===== Hormati pengguna yang mematikan animasi ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+            .js .reveal { opacity: 1; transform: none; }
+            .terbang, .lampu { display: none; }
+        }
+ 
+        @media (max-width: 480px) {
+            body { padding: 1.75rem 1rem 6rem; }
+            .section { padding: 1.1rem; border-radius: 16px; }
+            .maskot { width: 210px; }
+            .bulan { width: 70px; height: 70px; }
+            .lampu { width: 150px; }
+        }
+    </style>
+ 
+    <script>
+        // Tandai bahwa JavaScript aktif agar animasi muncul bisa dipakai
+        document.documentElement.classList.add('js');
+    </script>
+</head>
+<body>
+ 
+    <!-- Latar malam (dekorasi saja) -->
+    <div class="latar" aria-hidden="true">
+        <div class="bulan"></div>
+        <div class="lampu"></div>
+ 
+        <svg class="kota" viewBox="0 0 1200 200" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#0b1020">
+                <rect x="0"   y="110" width="90"  height="90"/>
+                <rect x="90"  y="70"  width="70"  height="130"/>
+                <rect x="160" y="120" width="100" height="80"/>
+                <rect x="260" y="40"  width="80"  height="160"/>
+                <polygon points="260,40 300,10 340,40"/>
+                <rect x="340" y="100" width="110" height="100"/>
+                <rect x="450" y="60"  width="70"  height="140"/>
+                <rect x="520" y="115" width="120" height="85"/>
+                <rect x="640" y="30"  width="90"  height="170"/>
+                <rect x="730" y="90"  width="80"  height="110"/>
+                <rect x="810" y="125" width="110" height="75"/>
+                <rect x="920" y="55"  width="75"  height="145"/>
+                <rect x="995" y="100" width="100" height="100"/>
+                <rect x="1095" y="75" width="105" height="125"/>
+            </g>
+            <g fill="#ffd23f">
+                <rect class="jendela" x="105" y="90"  width="8" height="10"/>
+                <rect class="jendela" x="130" y="115" width="8" height="10"/>
+                <rect class="jendela" x="180" y="140" width="8" height="10"/>
+                <rect class="jendela" x="225" y="150" width="8" height="10"/>
+                <rect class="jendela" x="278" y="70"  width="8" height="10"/>
+                <rect class="jendela" x="310" y="100" width="8" height="10"/>
+                <rect class="jendela" x="360" y="125" width="8" height="10"/>
+                <rect class="jendela" x="410" y="150" width="8" height="10"/>
+                <rect class="jendela" x="468" y="85"  width="8" height="10"/>
+                <rect class="jendela" x="495" y="120" width="8" height="10"/>
+                <rect class="jendela" x="545" y="140" width="8" height="10"/>
+                <rect class="jendela" x="600" y="160" width="8" height="10"/>
+                <rect class="jendela" x="660" y="60"  width="8" height="10"/>
+                <rect class="jendela" x="695" y="100" width="8" height="10"/>
+                <rect class="jendela" x="750" y="120" width="8" height="10"/>
+                <rect class="jendela" x="835" y="150" width="8" height="10"/>
+                <rect class="jendela" x="880" y="135" width="8" height="10"/>
+                <rect class="jendela" x="940" y="80"  width="8" height="10"/>
+                <rect class="jendela" x="1020" y="125" width="8" height="10"/>
+                <rect class="jendela" x="1060" y="150" width="8" height="10"/>
+                <rect class="jendela" x="1115" y="105" width="8" height="10"/>
+                <rect class="jendela" x="1160" y="135" width="8" height="10"/>
+            </g>
+        </svg>
+ 
+        <!-- Kelelawar kecil yang terbang melintas -->
+        <div class="terbang"><svg viewBox="0 0 32 18"><path d="M0 10C6 0 12 2 16 8 20 2 26 0 32 10 28 8 24 10 22 14 20 12 18 12 16 16 14 12 12 12 10 14 8 10 4 8 0 10Z"/></svg></div>
+        <div class="terbang"><svg viewBox="0 0 32 18"><path d="M0 10C6 0 12 2 16 8 20 2 26 0 32 10 28 8 24 10 22 14 20 12 18 12 16 16 14 12 12 12 10 14 8 10 4 8 0 10Z"/></svg></div>
+        <div class="terbang"><svg viewBox="0 0 32 18"><path d="M0 10C6 0 12 2 16 8 20 2 26 0 32 10 28 8 24 10 22 14 20 12 18 12 16 16 14 12 12 12 10 14 8 10 4 8 0 10Z"/></svg></div>
+    </div>
+ 
+    <div class="container">
+ 
+        <header>
+            <!-- Maskot: Kalong si kelelawar (karakter orisinal, digambar dengan SVG) -->
+            <div class="panggung">
+                <div class="bubble" id="bubble" role="status" aria-live="polite">
+                    Hai! Aku Kalong, penjaga halaman ini di malam hari.
+                </div>
+ 
+                <button class="maskot" id="maskot" type="button" aria-label="Klik Kalong untuk mengganti sapaannya">
+                    <span class="nada" aria-hidden="true">&#9834;</span>
+                    <span class="nada" aria-hidden="true">&#9835;</span>
+                    <span class="nada" aria-hidden="true">&#9834;</span>
+ 
+                    <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <g class="badan-kalong">
+                            <!-- sayap kiri -->
+                            <g class="sayap-kiri">
+                                <path d="M110 108 C86 62 46 50 12 64 C26 74 28 86 26 98 C36 94 44 100 48 112 C58 106 68 114 72 126 C84 118 98 120 110 130 Z"
+                                      fill="#2a3150" stroke="#3a4470" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M108 112 C86 90 60 80 30 72 M108 118 C90 108 70 108 50 112"
+                                      stroke="#3a4470" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            </g>
+ 
+                            <!-- sayap kanan -->
+                            <g class="sayap-kanan">
+                                <path d="M130 108 C154 62 194 50 228 64 C214 74 212 86 214 98 C204 94 196 100 192 112 C182 106 172 114 168 126 C156 118 142 120 130 130 Z"
+                                      fill="#2a3150" stroke="#3a4470" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M132 112 C154 90 180 80 210 72 M132 118 C150 108 170 108 190 112"
+                                      stroke="#3a4470" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            </g>
+ 
+                            <!-- badan -->
+                            <ellipse cx="120" cy="122" rx="30" ry="34" fill="#1c2238"/>
+                            <ellipse cx="120" cy="130" rx="18" ry="22" fill="#2b3350"/>
+ 
+                            <!-- kaki -->
+                            <path d="M108 152 q-3 8 -8 8 M112 154 q0 8 -4 10 M132 152 q3 8 8 8 M128 154 q0 8 4 10"
+                                  stroke="#1c2238" stroke-width="4" stroke-linecap="round" fill="none"/>
+ 
+                            <!-- telinga -->
+                            <g class="telinga">
+                                <polygon points="94,72 90,34 118,60" fill="#1c2238"/>
+                                <polygon points="146,72 150,34 122,60" fill="#1c2238"/>
+                                <polygon points="97,66 95,46 110,60" fill="#ff9db0"/>
+                                <polygon points="143,66 145,46 130,60" fill="#ff9db0"/>
+                            </g>
+ 
+                            <!-- kepala -->
+                            <circle cx="120" cy="88" r="31" fill="#1c2238"/>
+ 
+                            <!-- pipi -->
+                            <circle cx="98" cy="98" r="6" fill="#ff9db0" opacity=".4"/>
+                            <circle cx="142" cy="98" r="6" fill="#ff9db0" opacity=".4"/>
+ 
+                            <!-- mata -->
+                            <g class="mata">
+                                <ellipse cx="108" cy="86" rx="9" ry="10" fill="#fff6c8"/>
+                                <g class="pupil" id="pupilKiri">
+                                    <circle cx="108" cy="87" r="5.5" fill="#0b0f1c"/>
+                                    <circle cx="110" cy="84.5" r="1.8" fill="#fff"/>
+                                </g>
+                            </g>
+                            <g class="mata">
+                                <ellipse cx="132" cy="86" rx="9" ry="10" fill="#fff6c8"/>
+                                <g class="pupil" id="pupilKanan">
+                                    <circle cx="132" cy="87" r="5.5" fill="#0b0f1c"/>
+                                    <circle cx="134" cy="84.5" r="1.8" fill="#fff"/>
+                                </g>
+                            </g>
+ 
+                            <!-- hidung, mulut, taring -->
+                            <ellipse cx="120" cy="99" rx="3.2" ry="2.2" fill="#ff9db0"/>
+                            <path d="M112 104 q8 7 16 0" stroke="#e9edf8" stroke-width="2" stroke-linecap="round" fill="none"/>
+                            <polygon points="114,105 117,105 115.5,111" fill="#fff"/>
+                            <polygon points="123,105 126,105 124.5,111" fill="#fff"/>
+ 
+                            <!-- headphone (muncul saat lagu diputar) -->
+                            <g class="headphone">
+                                <path d="M86 86 A36 36 0 0 1 154 86" fill="none"
+                                      stroke="#ffd23f" stroke-width="7" stroke-linecap="round"/>
+                                <rect x="78" y="76" width="15" height="28" rx="7.5" fill="#ffd23f"/>
+                                <rect x="147" y="76" width="15" height="28" rx="7.5" fill="#ffd23f"/>
+                            </g>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+ 
+            <h1>Latihan Tag Media HTML</h1>
+            <p>Kumpulan contoh gambar, audio, video, dan embed yang dipakai dalam satu halaman.</p>
+        </header>
+ 
+        <main>
+            <!-- Tag img -->
+            <section class="section reveal">
+                <h2><code>&lt;img&gt;</code> Gambar</h2>
+                <img class="media" src="Assets/Jarjit_sing.png" alt="Gambar Jarjit Singh" loading="lazy">
+            </section>
+ 
+            <!-- Tag audio -->
+            <section class="section reveal">
+                <h2><code>&lt;audio&gt;</code> Audio</h2>
+                <audio class="media" id="audio" controls preload="none">
+                    <source src="Assets/Last Child - DUKA (Official Lyric Video) __ SORROW.mp3" type="audio/mp3">
+                    Browser kamu tidak mendukung tag audio.
+                </audio>
+            </section>
+ 
+            <!-- Tag video -->
+            <section class="section reveal">
+                <h2><code>&lt;video&gt;</code> Video</h2>
+                <video class="media" id="video" controls preload="metadata">
+                    <source src="Assets/Kucing.mp4" type="video/mp4">
+                    Browser kamu tidak mendukung tag video.
+                </video>
+            </section>
+ 
+            <!-- Tag embed / iframe: YouTube -->
+            <section class="section reveal">
+                <h2><code>&lt;iframe&gt;</code> Embed YouTube</h2>
+                <iframe
+                    class="media"
+                    src="https://www.youtube.com/embed/ZBONqmVxYkM?si=A69E6afCTBpULTSc"
+                    title="YouTube video player"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+            </section>
+ 
+            <!-- Tag iframe: video loop dari website lain -->
+            <section class="section reveal">
+                <h2><code>&lt;iframe&gt;</code> Embed Video Loop</h2>
+                <iframe
+                    class="media"
+                    src="https://onepagelove.com/wp-content/uploads/opl-video/posts/88651/d4ce74f47ea17fd4e890bbf723c6458d/loop.mp4"
+                    title="Video loop dari One Page Love"
+                    loading="lazy"></iframe>
+            </section>
+        </main>
+ 
+        <footer>
+            <p>Dibuat untuk latihan HTML</p>
+        </footer>
+ 
+    </div>
+ 
+    <script>
+        // ===== Munculkan setiap kartu saat masuk ke layar =====
+        const kartu = document.querySelectorAll('.reveal');
+ 
+        if ('IntersectionObserver' in window) {
+            const pengamat = new IntersectionObserver((daftar) => {
+                daftar.forEach((item) => {
+                    if (item.isIntersecting) {
+                        item.target.classList.add('tampil');
+                        pengamat.unobserve(item.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+ 
+            kartu.forEach((el) => pengamat.observe(el));
+        } else {
+            kartu.forEach((el) => el.classList.add('tampil'));
+        }
+ 
+        // ===== Maskot Kalong =====
+        const maskot = document.getElementById('maskot');
+        const bubble = document.getElementById('bubble');
+        const pupilKiri = document.getElementById('pupilKiri');
+        const pupilKanan = document.getElementById('pupilKanan');
+        const audio = document.getElementById('audio');
+        const video = document.getElementById('video');
+        const kurangiGerak = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ 
+        const sapaan = [
+            'Hai! Aku Kalong, penjaga halaman ini di malam hari.',
+            'Scroll ke bawah ya, ada gambar, lagu, dan video.',
+            'Cit cit! Klik aku lagi untuk sapaan lain.',
+            'Latihan HTML-mu makin rapi nih!'
+        ];
+        let urutan = 0;
+ 
+        function ucap(teks) {
+            bubble.classList.add('ganti');
+            setTimeout(() => {
+                bubble.textContent = teks;
+                bubble.classList.remove('ganti');
+            }, 250);
+        }
+ 
+        maskot.addEventListener('click', () => {
+            urutan = (urutan + 1) % sapaan.length;
+            ucap(sapaan[urutan]);
+            maskot.classList.remove('loncat');
+            void maskot.offsetWidth; // mulai ulang animasi
+            maskot.classList.add('loncat');
+        });
+ 
+        // Mata mengikuti kursor / sentuhan
+        if (!kurangiGerak) {
+            document.addEventListener('pointermove', (e) => {
+                const kotak = maskot.getBoundingClientRect();
+                const pusatX = kotak.left + kotak.width / 2;
+                const pusatY = kotak.top + kotak.height * 0.43;
+                const dx = e.clientX - pusatX;
+                const dy = e.clientY - pusatY;
+                const jarak = Math.hypot(dx, dy) || 1;
+                const geser = Math.min(4, jarak / 40);
+                const x = (dx / jarak) * geser;
+                const y = (dy / jarak) * geser;
+                const gaya = `translate(${x}px, ${y}px)`;
+                pupilKiri.style.transform = gaya;
+                pupilKanan.style.transform = gaya;
+            });
+        }
+ 
+        // Kalong bereaksi saat lagu dan video diputar
+        audio.addEventListener('play', () => {
+            document.body.classList.add('musik');
+            ucap('Wah, lagunya enak! Aku ikut dengerin.');
+        });
+        ['pause', 'ended'].forEach((nama) => {
+            audio.addEventListener(nama, () => {
+                document.body.classList.remove('musik');
+                ucap('Musiknya berhenti. Lanjut lihat video?');
+            });
+        });
+        video.addEventListener('play', () => ucap('Videonya kucing! Hmm, aku jadi lapar.'));
+    </script>
+</body>
+</html>
+ 
