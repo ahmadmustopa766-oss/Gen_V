@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeTIK Jombang - Space Edition</title>
+    <!-- TailwindCSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Konfigurasi tema Luar Angkasa 2D */
+        body {
+            background-color: #050510;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(45, 20, 80, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(20, 50, 90, 0.5) 0%, transparent 50%);
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.02);
+        }
+
+        .glowing-text {
+            text-shadow: 0 0 10px rgba(34, 211, 238, 0.6), 0 0 20px rgba(34, 211, 238, 0.4);
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.8); box-shadow: 0 0 0 rgba(255,255,255,0); }
+            100% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 8px rgba(255,255,255,0.9); }
+        }
+
+        .reflect-below {
+            -webkit-box-reflect: below 2px linear-gradient(transparent 40%, rgba(255,255,255,0.3));
+        }
+    </style>
+</head>
+<body class="text-gray-200 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Animasi Bintang 2D -->
+    <div class="star w-1 h-1 top-[10%] left-[20%]" style="animation-duration: 1.5s;"></div>
+    <div class="star w-2 h-2 top-[25%] left-[80%]" style="animation-duration: 2s;"></div>
+    <div class="star w-1.5 h-1.5 top-[70%] left-[15%]" style="animation-duration: 1.8s;"></div>
+    <div class="star w-1 h-1 top-[60%] left-[75%]" style="animation-duration: 2.2s;"></div>
+    <div class="star w-2 h-2 top-[85%] left-[50%]" style="animation-duration: 1.7s;"></div>
+
+    <!-- HEADER -->
+    <header class="glass-panel m-4 rounded-2xl p-4 flex justify-between items-center z-10 border-t-2 border-t-cyan-500">
+        <div class="flex items-center gap-3">
+            <span class="text-4xl font-bold text-cyan-400 glowing-text">∞</span>
+            <span class="text-xs text-cyan-200 tracking-widest mt-1">PeTIK Jombang</span>
+        </div>
+        <nav class="hidden md:flex gap-8 pr-4">
+            <a href="#" class="text-sm font-medium hover:text-cyan-300">About</a>
+            <a href="#" class="text-sm font-medium hover:text-cyan-300">Blog</a>
+            <a href="#" class="text-sm font-medium hover:text-cyan-300">Shop</a>
+            <a href="#" class="text-sm font-medium hover:text-cyan-300">Contact</a>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow grid grid-cols-1 md:grid-cols-12 gap-6 p-4 z-10 max-w-7xl mx-auto w-full">
+        
+        <!-- SIDEBAR KIRI -->
+        <aside class="glass-panel rounded-2xl p-6 md:col-span-3 flex flex-col items-center justify-start border-t-2 border-t-pink-500">
+            <div class="w-full aspect-square bg-white/5 rounded-xl flex items-center justify-center mb-6 border border-white/10">
+                <span class="text-pink-400">📱</span>
+            </div>
+            <p class="text-pink-300 font-semibold tracking-wide text-sm glowing-text">Iklan Android</p>
+        </aside>
+
+        <!-- KONTEN TENGAH (3 Paragraf Utuh) -->
+        <article class="glass-panel rounded-2xl p-8 md:col-span-6 border-t-2 border-t-purple-500">
+            <h1 class="text-2xl md:text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">
+                Informasi Seputar PeTIK Jombang
+            </h1>
+            
+            <div class="space-y-4 text-sm text-gray-300 leading-relaxed text-justify">
+                <!-- Paragraf 1 -->
+                <p>PeTIK Jombang merupakan lembaga pendidikan vokasi Teknologi Informasi dan Komunikasi dengan dukungan pembelajaran bidang kepesantrenan (Kajian Kitab Kuning) dari ulama-ulama yang memiliki sanad keilmuan yang jelas[cite: 1].</p>
+                
+                <!-- Paragraf 2 -->
+                <p>PeTIK Jombang yang merupakan lembaga pendidikan di bawah naungan Yayasan Baitul Maal (YBM) PLN, berkomitmen melanjutkan visi dan misi untuk menebarkan manfaat kepada umat seluas-luasnya[cite: 1]. Hal ini diwujudkan dengan memberikan kemanfaatan kepada anak-anak dhuafa untuk mengenyam pendidikan teknologi informasi dan komunikasi selama 1 (satu) tahun[cite: 1]. Jurusan pendidikan teknologi informasi dan komunikasi bagi mahasantri dibagi menjadi 2 (dua) jurusan yaitu : Pengembangan Perangkat Lunak (PPL) dan Digital Marketing (DM)[cite: 1].</p>
+                
+                <!-- Paragraf 3 -->
+                <p>Pada jurusan PPL, mahasantri diajarkan bagaimana membuat website, aplikasi berbasis web, aplikasi mobile, merancang UI/UX, merancang database, dan lain-lain[cite: 1]. Jurusan DM, mahasantri diajarkan bagaimana menggunakan tool marketing online melalui internet, memasang iklan melalui Instagram, Facebook, TikTok guna meningkatkan penjualan produk[cite: 1]. Selain itu juga diajarkan SEO (Search Engine Optimization)[cite: 1]. Di bidang kepesantrenan, mahasantri diajarkan Kitab Hadits Arbain, Kitab Kuning Taklim Mutaalim, Tauhid (Aqidatul Awam), Fiqih (Safinatunnajah, Fathul Qorib), Tasawuf (Sulam Taufiq, Bidayatul Hidayah), Tafsir (Al Ibris), Nahwu (Jurumiyah)[cite: 1].</p>
+            </div>
+        </article>
+
+        <!-- SIDEBAR KANAN -->
+        <aside class="glass-panel rounded-2xl p-6 md:col-span-3 flex flex-col gap-5 border-t-2 border-t-blue-500">
+            <a href="#" class="text-cyan-200 hover:text-cyan-400 text-sm underline decoration-cyan-500/30 underline-offset-4">Beranda</a>
+            <a href="#" class="text-purple-200 hover:text-purple-400 text-sm underline decoration-purple-500/30 underline-offset-4">Article</a>
+            <a href="#" class="text-pink-200 hover:text-pink-400 text-sm underline decoration-pink-500/30 underline-offset-4">Pendaftaran</a>
+            <a href="#" class="text-blue-200 hover:text-blue-400 text-sm underline decoration-blue-500/30 underline-offset-4">Galery</a>
+        </aside>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="glass-panel m-4 rounded-2xl p-4 text-center z-10 reflect-below border-b-2 border-b-cyan-500/50">
+        <p class="text-xs text-gray-400 tracking-wide">
+            Copyright © 2023 Programming PeTIK. All Rights Reserved
+        </p>
+    </footer>
+
+</body>
+</html>
