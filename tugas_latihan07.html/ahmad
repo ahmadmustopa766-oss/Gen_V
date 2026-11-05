@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animasi Web Design</title>
+   
+    <link rel="stylesheet" href="index.css"> 
+</head>
+<body>
+
+    <div class="wadah-utama">
+       
+        <div class="area-bola">
+            <div class="bola"></div>
+        </div>
+        
+        
+        <div class="papan-teks">
+            <div class="teks">Assalamu'alaikum Selamat Belajar Web Design.</div>
+        </div>
+    </div>
+
+</body>
+</html>
